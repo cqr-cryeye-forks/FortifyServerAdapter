@@ -1,0 +1,4 @@
+patool==1.12
+ulid-py==1.1.0
+xmltodict~=0.13.0
+ulid~=1.1
