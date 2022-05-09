@@ -1,8 +1,10 @@
 # Fortify Server Adapter
 
-Share you local Fortify app to the network.
+Share your local Fortify app to the network.
 
-you can run locals scan or use my custom client for scanning local files on remote Fortify
+You can run locals scan or use my custom client for scanning local files on remote Fortify
+
+Link: https://github.com/zeinlol/FortifyRemoteClient
 
 ## Run
 `main.py` with some of the flags bellow.
