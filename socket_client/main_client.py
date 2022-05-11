@@ -118,4 +118,5 @@ async def async_client(client: socket.socket, adr: tuple):
         except Exception as e:
             logging.error(f'DATA ERROR:{e}')
             break
+    logger.info(f'Disconnected: {str(adr)}')
     client.close()
