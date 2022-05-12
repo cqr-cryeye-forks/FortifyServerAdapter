@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.9
 import asyncio
 from concurrent.futures import ProcessPoolExecutor
 
@@ -6,6 +7,7 @@ from data.cli_arguments import cli_arguments
 from data.config import FORTIFY_APP_NAME
 from fortify.scan import run_scan
 from tools.analyse_setup import check_sources
+from sys import exit
 
 if __name__ == '__main__':
     source_path = cli_arguments.sources
