@@ -19,7 +19,7 @@ async def async_client(client: socket.socket, adr: tuple):
     fortify_obj: FortifyScan
     scan_result_as_bytes = b''
     client_loop = asyncio.get_event_loop()
-    logger.info('New Connection: ' + str(adr))
+    logger.info(f'New Connection: {adr}')
 
     async def send_to_client(data_for_sending: dict,
                              status: CommandStatuses = CommandStatuses.DONE.value):
@@ -89,23 +89,26 @@ async def async_client(client: socket.socket, adr: tuple):
                         result = {'result': 'Forty scan status', 'length': len(scan_result_as_bytes)}
                         status = fortify_obj.status
                     await send_to_client(data_for_sending=result, status=status)
-                    clean_results_folder()
+                    # can brake other scans
+                    # clean_results_folder()
 
                 elif command == ClientCommands.GET_RESULT.value:
                     await client_loop.sock_sendfile(client, file=BytesIO(scan_result_as_bytes))
 
                 elif command == ClientCommands.CLEAN_OLD_RESULTS.value:
-                    result = {'result': 'Old scans removed'}
-                    status = CommandStatuses.ERROR.value
-                    if clean_results_folder():
-                        status = CommandStatuses.DONE.value
+                    result = {'result': 'Feature disabled'}
+                    # result = {'result': 'Old scans removed'}
+                    # status = CommandStatuses.ERROR.value
+                    # if clean_results_folder():
+                    #     status = CommandStatuses.DONE.value
                     await send_to_client(data_for_sending=result, status=status)
 
                 elif command == ClientCommands.CLEAN_OLD_TARGETS.value:
-                    result = {'result': 'Old targets removed'}
-                    status = CommandStatuses.ERROR.value
-                    if clean_target_folder():
-                        status = CommandStatuses.DONE.value
+                    result = {'result': 'Feature disabled'}
+                    # result = {'result': 'Old targets removed'}
+                    # status = CommandStatuses.ERROR.value
+                    # if clean_target_folder():
+                    #     status = CommandStatuses.DONE.value
                     await send_to_client(data_for_sending=result, status=status)
 
                 else:
@@ -113,10 +116,10 @@ async def async_client(client: socket.socket, adr: tuple):
                     await send_to_client(data_for_sending={'result': 'Unknown command'},
                                          status=CommandStatuses.ERROR.value)
         except ConnectionResetError:
-            logger.info(f'Disconnected: {str(adr)}')
+            logger.info(f'Disconnected: {adr}')
             break
         except Exception as e:
             logging.error(f'DATA ERROR:{e}')
             break
-    logger.info(f'Disconnected: {str(adr)}')
+    logger.info(f'Disconnected: {adr}')
     client.close()

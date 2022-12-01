@@ -60,6 +60,7 @@ class FortifyScan(ABC):
         self.parce_result()
         if self.clean_results:
             self.remove_output_file()
+            self.remove_target_folder()
         return self._result
 
     def parce_result(self):
@@ -71,3 +72,7 @@ class FortifyScan(ABC):
     def remove_output_file(self):
         shutil.rmtree(self.output, ignore_errors=True)
         logger.info(f'File {self.output} removed')
+
+    def remove_target_folder(self):
+        shutil.rmtree(self.sources.as_posix(), ignore_errors=True)
+        logger.info(f'Folder {self.output} removed')
