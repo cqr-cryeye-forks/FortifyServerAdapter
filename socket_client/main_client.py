@@ -85,7 +85,7 @@ async def async_client(client: socket.socket, adr: tuple):
                     else:
                         fortify_obj = FortifyScan(target=target_archive, clean_results=clean_results)
                         scan_result = fortify_obj.run_scan()
-                        scan_result_as_bytes = json.dumps(scan_result).encode('utf-8')
+                        scan_result_as_bytes = json.dumps(scan_result).encode()
                         result = {'result': 'Forty scan status', 'length': len(scan_result_as_bytes)}
                         status = fortify_obj.status
                     await send_to_client(data_for_sending=result, status=status)
@@ -98,7 +98,7 @@ async def async_client(client: socket.socket, adr: tuple):
                 elif command == ClientCommands.CLEAN_OLD_RESULTS.value:
                     result = {'result': 'Feature disabled'}
                     # result = {'result': 'Old scans removed'}
-                    # status = CommandStatuses.ERROR.value
+                    status = CommandStatuses.ERROR.value
                     # if clean_results_folder():
                     #     status = CommandStatuses.DONE.value
                     await send_to_client(data_for_sending=result, status=status)
@@ -106,7 +106,7 @@ async def async_client(client: socket.socket, adr: tuple):
                 elif command == ClientCommands.CLEAN_OLD_TARGETS.value:
                     result = {'result': 'Feature disabled'}
                     # result = {'result': 'Old targets removed'}
-                    # status = CommandStatuses.ERROR.value
+                    status = CommandStatuses.ERROR.value
                     # if clean_target_folder():
                     #     status = CommandStatuses.DONE.value
                     await send_to_client(data_for_sending=result, status=status)
