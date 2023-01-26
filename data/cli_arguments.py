@@ -20,7 +20,8 @@ def create_parser():
                         help=f'[Only for local scan] File extension for output. Default: {DEFAULT_OUTPUT_FORMAT}')
     parser.add_argument('-t', '--target', type=Path, default=PARENT_BASE,
                         help=f'[Only for local scan] Path for analyzing. Default {PARENT_BASE}')
-
+    parser.add_argument('-dt', '--delete-time', type=int, default=7,
+                        help='Days that other generated project will be kept. Default 7')
     return parser.parse_args()
 
 

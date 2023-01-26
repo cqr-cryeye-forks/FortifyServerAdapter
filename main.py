@@ -1,6 +1,5 @@
 #!/usr/bin/env python3.9
 import asyncio
-from concurrent.futures import ProcessPoolExecutor
 
 import server
 from data.cli_arguments import cli_arguments
@@ -23,6 +22,5 @@ if __name__ == '__main__':
                  output=cli_arguments.output,
                  output_format=cli_arguments.output_format,
                  sources=source_path)
-    executor = ProcessPoolExecutor(1)
     loop = asyncio.new_event_loop()
     loop.run_until_complete(server.socket_listener())
